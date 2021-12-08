@@ -1,0 +1,92 @@
+call plug#begin('~/.nvim/plugged')
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'tssm/fairyfloss.vim'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'cespare/vim-toml', { 'branch': 'main' }
+call plug#end()
+
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+let g:coc_global_extensions = ['coc-tsserver']
+
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+colorscheme fairyfloss
+syntax on
+filetype plugin indent on
+set encoding=utf-8
+set termguicolors
+set number
+set nowrap
+set autoread
+au FocusGained,BufEnter * checktime
+
+let mapleader = ","
+nmap <leader>w :w!<cr>
+
+set ruler
+
+set ignorecase
+set smartcase
+
+set hlsearch
+set incsearch
+
+set lazyredraw
+
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+set foldcolumn=1
+
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set noshiftround
+
+set ai "Auto indent
+set si "Smart indent
+
+set scrolloff=3
+set backspace=indent,eol,start
+set matchpairs+=<:> " use % to jump between pairs
+runtime! macros/matchit.vim
+
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+set laststatus=2
+
+nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim\| :PlugInstall<CR>
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.ts,*.rs,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
