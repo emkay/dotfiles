@@ -4,8 +4,7 @@
 - clean: ['~']
 
 - link:
-  ~/.config/nvim: nvim
-  ~/.zshrc: zshrc
+    ~/.config/nvim: nvim
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
