@@ -105,7 +105,8 @@ call plug#begin(data_dir . '/plugins')
 source ~/.config/nvim/plugins/airline.vim
 source ~/.config/nvim/plugins/coc.vim
 source ~/.config/nvim/plugins/commentary.vim
-source ~/.config/nvim/plugins/fairyfloss.vim
+" source ~/.config/nvim/plugins/fairyfloss.vim
+colorscheme slate
 source ~/.config/nvim/plugins/floaterm.vim
 source ~/.config/nvim/plugins/fugitive.vim
 source ~/.config/nvim/plugins/fzf.vim
